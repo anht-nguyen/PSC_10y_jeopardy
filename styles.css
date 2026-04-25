@@ -258,11 +258,11 @@ input.subtract-points {
 	max-width:60%;
 }
 
-#answer-media h2 {
+#question-media h2 {
 	text-align:left;
 }
 
-#question-media h2 {
+#answer-media h2 {
 	text-align:left;
 }
 
@@ -271,7 +271,7 @@ input.subtract-points {
 	width:auto;
 	height:auto;
 	max-width:500px;
-	max-height:350px;
+	max-height:360px;
 	object-fit:contain;
 }
 

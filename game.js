@@ -45,9 +45,9 @@ var gamePrompt = window.gamePrompt || {};
 window.game = game;
 window.gamePrompt = gamePrompt;
 
-game.config = window.JEOPARDY_CONFIG || {};
+game.config = window.QUIZ_CONFIG || window.JEOPARDY_CONFIG || {};
 game.current_points = 0;
-game.current_questionID = null;
+game.currentQuestionId = null;
 game.team_cnt = 0;
 
 game.getActiveCategories = function()
@@ -64,7 +64,7 @@ game.getPointValue = function(rowIndex)
 game.renderBoard = function()
 {
 	if(!game.config.board || !game.config.categories)
-		throw new Error("Missing JEOPARDY_CONFIG board data.");
+		throw new Error("Missing QUIZ_CONFIG board data.");
 
 	var categories = game.getActiveCategories();
 	var questionCount = game.config.board.questionsPerCategory;
@@ -73,7 +73,7 @@ game.renderBoard = function()
 	var thead = $("game").getElementsByTagName("thead")[0];
 
 	if(categories.length < game.config.board.categoryCount)
-		throw new Error("Not enough categories in JEOPARDY_CONFIG.");
+		throw new Error("Not enough categories in QUIZ_CONFIG.");
 
 	document.title = game.config.title;
 	document.querySelector("#options h1").textContent = game.config.title;
@@ -99,21 +99,21 @@ game.renderBoard = function()
 
 		for(var col = 0; col < categories.length; col++)
 		{
-			var clue = categories[col].questions[r];
-			var questionID = "q" + r + col;
+			var card = categories[col].questions[r];
+			var questionId = "q" + r + col;
 			var points = game.getPointValue(r);
 			var cell = document.createElement("td");
 			var heading = document.createElement("h3");
 
-			cell.id = "t" + questionID;
+			cell.id = "t" + questionId;
 			cell.className = "cell clean";
-			cell.dataset.questionId = questionID;
+			cell.dataset.questionId = questionId;
 			cell.dataset.points = String(points);
 			cell.dataset.categoryTitle = categories[col].title;
-			cell.dataset.answer = clue.answer;
-			cell.dataset.answerMedia = normalizeMedia(clue.answer_media);
-			cell.dataset.question = clue.question;
-			cell.dataset.questionMedia = normalizeMedia(clue.question_media);
+			cell.dataset.question = card.question;
+			cell.dataset.questionMedia = normalizeMedia(card.question_media);
+			cell.dataset.answer = card.answer;
+			cell.dataset.answerMedia = normalizeMedia(card.answer_media);
 			cell.onclick = function() {
 				gamePrompt.show(this);
 			};
@@ -217,10 +217,10 @@ game.subtractPoints = function(team)
 
 game.markQuestionUsed = function()
 {
-	if(!game.current_questionID)
+	if(!game.currentQuestionId)
 		return;
 
-	var cell = $("t" + game.current_questionID);
+	var cell = $("t" + game.currentQuestionId);
 	if(!cell)
 		return;
 
@@ -239,14 +239,14 @@ game.markQuestionUsed = function()
 gamePrompt.show = function(cellNode)
 {
 	game.current_points = parseInt(cellNode.dataset.points, 10);
-	game.current_questionID = cellNode.dataset.questionId;
-	setHidden($("question-media"), true);
+	game.currentQuestionId = cellNode.dataset.questionId;
+	setHidden($("answer-media"), true);
 	setHidden($("game"), true);
 	setHidden($("prompt"), false, "block");
 	$("prompt-title").innerHTML = cellNode.dataset.categoryTitle + " for " + cellNode.dataset.points + ":";
-	applyMediaPair("answer-media", "answer", "answer-image", cellNode.dataset.answer, cellNode.dataset.answerMedia);
 	applyMediaPair("question-media", "question", "question-image", cellNode.dataset.question, cellNode.dataset.questionMedia);
-	setHidden($("correct-response"), $("question").textContent.length === 0 && !cellNode.dataset.questionMedia);
+	applyMediaPair("answer-media", "answer", "answer-image", cellNode.dataset.answer, cellNode.dataset.answerMedia);
+	setHidden($("answer-reveal"), $("answer").textContent.length === 0 && !cellNode.dataset.answerMedia);
 };
 
 gamePrompt.hide = function()
@@ -256,9 +256,9 @@ gamePrompt.hide = function()
 	setHidden($("game"), false, "table");
 };
 
-gamePrompt.showQuestion = function()
+gamePrompt.showAnswer = function()
 {
-	setHidden($("question-media"), false, "flex");
+	setHidden($("answer-media"), false, "flex");
 };
 
 document.addEventListener("DOMContentLoaded", function() {
