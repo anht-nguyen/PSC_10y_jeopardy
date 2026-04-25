@@ -8,6 +8,37 @@ function setHidden(element, hidden, visibleDisplay)
 	element.style.display = hidden ? "none" : (visibleDisplay || "block");
 }
 
+function normalizeMedia(value)
+{
+	if(value === null || value === undefined || value === "" || value === "None")
+		return "";
+
+	return String(value);
+}
+
+function applyMediaPair(containerId, textId, imageId, textValue, imageValue)
+{
+	var container = $(containerId);
+	var textNode = $(textId);
+	var imageNode = $(imageId);
+	var mediaPath = normalizeMedia(imageValue);
+
+	textNode.textContent = textValue || "";
+
+	if(mediaPath)
+	{
+		imageNode.src = mediaPath;
+		imageNode.style.display = "block";
+		container.classList.add("has-image");
+	}
+	else
+	{
+		imageNode.removeAttribute("src");
+		imageNode.style.display = "none";
+		container.classList.remove("has-image");
+	}
+}
+
 var game = window.game || {};
 var gamePrompt = window.gamePrompt || {};
 
@@ -80,7 +111,9 @@ game.renderBoard = function()
 			cell.dataset.points = String(points);
 			cell.dataset.categoryTitle = categories[col].title;
 			cell.dataset.answer = clue.answer;
+			cell.dataset.answerMedia = normalizeMedia(clue.answer_media);
 			cell.dataset.question = clue.question;
+			cell.dataset.questionMedia = normalizeMedia(clue.question_media);
 			cell.onclick = function() {
 				gamePrompt.show(this);
 			};
@@ -207,13 +240,13 @@ gamePrompt.show = function(cellNode)
 {
 	game.current_points = parseInt(cellNode.dataset.points, 10);
 	game.current_questionID = cellNode.dataset.questionId;
-	setHidden($("question"), true);
+	setHidden($("question-media"), true);
 	setHidden($("game"), true);
 	setHidden($("prompt"), false, "block");
 	$("prompt-title").innerHTML = cellNode.dataset.categoryTitle + " for " + cellNode.dataset.points + ":";
-	$("question").textContent = cellNode.dataset.question;
-	$("answer").textContent = cellNode.dataset.answer;
-	setHidden($("correct-response"), $("question").textContent.length === 0);
+	applyMediaPair("answer-media", "answer", "answer-image", cellNode.dataset.answer, cellNode.dataset.answerMedia);
+	applyMediaPair("question-media", "question", "question-image", cellNode.dataset.question, cellNode.dataset.questionMedia);
+	setHidden($("correct-response"), $("question").textContent.length === 0 && !cellNode.dataset.questionMedia);
 };
 
 gamePrompt.hide = function()
@@ -225,7 +258,7 @@ gamePrompt.hide = function()
 
 gamePrompt.showQuestion = function()
 {
-	setHidden($("question"), false, "block");
+	setHidden($("question-media"), false, "flex");
 };
 
 document.addEventListener("DOMContentLoaded", function() {

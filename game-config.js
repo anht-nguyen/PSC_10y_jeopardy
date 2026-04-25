@@ -12,23 +12,33 @@ window.JEOPARDY_CONFIG = {
       questions: [
         {
           question: "What are muscles?",
-          answer: "These soft tissue structures when they contract allow you to move your arms and legs."
+          question_media: null,
+          answer: "These soft tissue structures when they contract allow you to move your arms and legs.",
+          answer_media: "images/placeholder.jpg"
         },
         {
           question: "What are joints?",
-          answer: "These structures are the location where two or more bones are fitted together."
+          question_media: "images/placeholder.jpg",
+          answer: "These structures are the location where two or more bones are fitted together.",
+          answer_media: null
         },
         {
           question: "What is flexion?",
-          answer: "The bending movement that decreases the angle between body parts."
+          question_media: "images/placeholder.jpg",
+          answer: "The bending movement that decreases the angle between body parts.",
+          answer_media: "images/placeholder.jpg"
         },
         {
           question: "What is extension?",
-          answer: "The bending movement that increases the angle between body parts."
+          question_media: "images/placeholder.jpg",
+          answer: "The bending movement that increases the angle between body parts.",
+          answer_media: "images/placeholder.jpg"
         },
         {
           question: "What is a tendon?",
-          answer: "This structure attaches a muscle to a bone."
+          question_media: "images/placeholder.jpg",
+          answer: "This structure attaches a muscle to a bone.",
+          answer_media: "images/placeholder.jpg"
         }
       ]
     },
@@ -37,23 +47,33 @@ window.JEOPARDY_CONFIG = {
       questions: [
         {
           question: "What are bones?",
-          answer: "These rigid organs make up the skeleton."
+          question_media: "images/placeholder.jpg",
+          answer: "These rigid organs make up the skeleton.",
+          answer_media: "images/placeholder.jpg"
         },
         {
           question: "What are vertebrae?",
-          answer: "These are a series of small bones forming the backbone."
+          question_media: "images/placeholder.jpg",
+          answer: "These are a series of small bones forming the backbone.",
+          answer_media: "images/placeholder.jpg"
         },
         {
           question: "What is the femur?",
-          answer: "This bone is the top most bone in the leg. Also called the thighbone."
+          question_media: "images/placeholder.jpg",
+          answer: "This bone is the top most bone in the leg. Also called the thighbone.",
+          answer_media: "images/placeholder.jpg"
         },
         {
           question: "What is the humerus?",
-          answer: "This bone in the arms runs from the shoulder to the elbow."
+          question_media: "images/placeholder.jpg",
+          answer: "This bone in the arms runs from the shoulder to the elbow.",
+          answer_media: "images/placeholder.jpg"
         },
         {
           question: "What is calcium?",
-          answer: "This is the most abundant mineral in the bones."
+          question_media: "images/placeholder.jpg",
+          answer: "This is the most abundant mineral in the bones.",
+          answer_media: "images/placeholder.jpg"
         }
       ]
     },
@@ -62,23 +82,33 @@ window.JEOPARDY_CONFIG = {
       questions: [
         {
           question: "What are lungs?",
-          answer: "These paired organs allow you to breath in air."
+          question_media: "images/placeholder.jpg",
+          answer: "These paired organs allow you to breath in air.",
+          answer_media: "images/placeholder.jpg"
         },
         {
           question: "What is oxygen?",
-          answer: "This molecule is the most essential inhaled gas."
+          question_media: "images/placeholder.jpg",
+          answer: "This molecule is the most essential inhaled gas.",
+          answer_media: "images/placeholder.jpg"
         },
         {
           question: "What is a stethoscope?",
-          answer: "This medical device used to listen to internal sounds of the human body."
+          question_media: "images/placeholder.jpg",
+          answer: "This medical device used to listen to internal sounds of the human body.",
+          answer_media: "images/placeholder.jpg"
         },
         {
           question: "What is carbon dioxide?",
-          answer: "This molecule is the most exhaled gas by humans."
+          question_media: "images/placeholder.jpg",
+          answer: "This molecule is the most exhaled gas by humans.",
+          answer_media: "images/placeholder.jpg"
         },
         {
           question: "What is the trachea?",
-          answer: "This hollow tube connects the pharynx to the lungs, allowing the passage of air."
+          question_media: "images/placeholder.jpg",
+          answer: "This hollow tube connects the pharynx to the lungs, allowing the passage of air.",
+          answer_media: "images/placeholder.jpg"
         }
       ]
     },
@@ -87,23 +117,33 @@ window.JEOPARDY_CONFIG = {
       questions: [
         {
           question: "What is the heart?",
-          answer: "This muscular organ pumps fluid through the circulatory system."
+          question_media: "images/placeholder.jpg",
+          answer: "This muscular organ pumps fluid through the circulatory system.",
+          answer_media: "images/placeholder.jpg"
         },
         {
           question: "What is blood?",
-          answer: "The heart pumps this fluid throughout the body."
+          question_media: "images/placeholder.jpg",
+          answer: "The heart pumps this fluid throughout the body.",
+          answer_media: "images/placeholder.jpg"
         },
         {
           question: "What are atria?",
-          answer: "These chambers collect blood as it returns to the heart."
+          question_media: "images/placeholder.jpg",
+          answer: "These chambers collect blood as it returns to the heart.",
+          answer_media: "images/placeholder.jpg"
         },
         {
           question: "What are ventricles?",
-          answer: "These chambers collect and expel blood out of the heart."
+          question_media: "images/placeholder.jpg",
+          answer: "These chambers collect and expel blood out of the heart.",
+          answer_media: "images/placeholder.jpg"
         },
         {
           question: "What are valves?",
-          answer: "These structures allow blood to flow in only one direction through the heart."
+          question_media: "images/placeholder.jpg",
+          answer: "These structures allow blood to flow in only one direction through the heart.",
+          answer_media: "images/placeholder.jpg"
         }
       ]
     },
@@ -112,23 +152,33 @@ window.JEOPARDY_CONFIG = {
       questions: [
         {
           question: "What are the eyes?",
-          answer: "These structures are the primary organs of vision."
+          question_media: "images/placeholder.jpg",
+          answer: "These structures are the primary organs of vision.",
+          answer_media: "images/placeholder.jpg"
         },
         {
           question: "What are eyelids?",
-          answer: "These thin folds of skin cover and protect the eyes."
+          question_media: "images/placeholder.jpg",
+          answer: "These thin folds of skin cover and protect the eyes.",
+          answer_media: "images/placeholder.jpg"
         },
         {
           question: "What are pupils?",
-          answer: "These structures allow light to enter the eyes and strike the retina."
+          question_media: "images/placeholder.jpg",
+          answer: "These structures allow light to enter the eyes and strike the retina.",
+          answer_media: "images/placeholder.jpg"
         },
         {
           question: "What is the optic nerve?",
-          answer: "This nerve transmits visual information to the brain from the eye."
+          question_media: "images/placeholder.jpg",
+          answer: "This nerve transmits visual information to the brain from the eye.",
+          answer_media: "images/placeholder.jpg"
         },
         {
           question: "What are the irises?",
-          answer: "These structures define the eye color and control how much light enters the eye."
+          question_media: "images/placeholder.jpg",
+          answer: "These structures define the eye color and control how much light enters the eye.",
+          answer_media: "images/placeholder.jpg"
         }
       ]
     }

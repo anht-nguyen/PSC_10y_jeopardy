@@ -244,6 +244,39 @@ input.subtract-points {
 	font-size:28px;
 }
 
+.media-pair {
+	display:flex;
+	align-items:center;
+	justify-content:center;
+	gap:32px;
+	margin:0 auto 24px;
+	max-width:90%;
+}
+
+.media-pair h2 {
+	margin:0;
+	max-width:560px;
+}
+
+#answer-media h2 {
+	text-align:left;
+}
+
+#question-media h2 {
+	text-align:left;
+}
+
+.media-pair img {
+	display:none;
+	width:280px;
+	max-width:35vw;
+	height:auto;
+}
+
+.media-pair:not(.has-image) h2 {
+	text-align:center;
+}
+
 #prompt a:link, #prompt a:visited, #prompt a:hover {
 	color:#fff;
 	font-size:18px;
@@ -256,4 +289,18 @@ input.subtract-points {
 
 #simplemodal-overlay {
 	background-color:#000;
+}
+
+@media (max-width: 900px) {
+	.media-pair {
+		flex-direction:column;
+	}
+
+	.media-pair h2 {
+		text-align:center;
+	}
+
+	.media-pair img {
+		max-width:70vw;
+	}
 }
