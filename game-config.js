@@ -24,9 +24,9 @@ window.JEOPARDY_CONFIG = {
         },
         {
           question: "What is flexion?",
-          question_media: "images/placeholder.jpg",
+          question_media: "images/placeholder-1.jpg",
           answer: "The bending movement that decreases the angle between body parts.",
-          answer_media: "images/placeholder.jpg"
+          answer_media: "images/placeholder-1.jpg"
         },
         {
           question: "What is extension?",
