@@ -6,7 +6,6 @@
 <title>Science Masters Jeopardy</title>
 <meta name="description" content="Self-contained Jeopardy template. />
 <meta name="ROBOTS" content="NOODP" />
-<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
 
 
 	<style type="text/css">
@@ -269,6 +268,7 @@ input.subtract-points {
 }
 
 	</style>
+    <script type="text/javascript" src="game-config.js"></script>
 	<script type="text/javascript">
         /*
  * jQuery JavaScript Library v1.3.2
@@ -447,15 +447,9 @@ $(document).ready(function(){
 	
 	$('textarea.edit').blur(function(){
 		$(this).removeClass('active');
-	})	
-	
-		$('.clean').mouseover(function(){
-			$(this).addClass('ie-hack')
-		})
-		
-		$('.clean').mouseout(function(){
-			$(this).removeClass('ie-hack')
-		})	
+	});
+
+	game.renderBoard();
 });
 
 var modal = {}
@@ -475,6 +469,84 @@ modal.save = function()
 }
 
 var game = {}
+game.config = window.JEOPARDY_CONFIG || {};
+
+game.bindBoardEvents = function()
+{
+	$('.clean').bind('mouseover', function(){
+		$(this).addClass('ie-hack');
+	});
+
+	$('.clean').bind('mouseout', function(){
+		$(this).removeClass('ie-hack');
+	});
+}
+
+game.getActiveCategories = function()
+{
+	var categoryCount = game.config.board.categoryCount;
+	return game.config.categories.slice(0, categoryCount);
+}
+
+game.renderBoard = function()
+{
+	if(!game.config.board || !game.config.categories)
+		throw new Error("Missing JEOPARDY_CONFIG board data.");
+
+	var categories = game.getActiveCategories();
+	var questionCount = game.config.board.questionsPerCategory;
+	var thead = "<tr>";
+	var tbody = "";
+
+	if(categories.length < game.config.board.categoryCount)
+		throw new Error("Not enough categories in JEOPARDY_CONFIG.");
+
+	document.title = game.config.title;
+	$('#options h1').text(game.config.title);
+
+	for(var c = 0; c < categories.length; c++)
+	{
+		thead += "<th>" + categories[c].title + "</th>";
+		if(categories[c].questions.length < questionCount)
+			throw new Error("Category '" + categories[c].title + "' does not have enough questions.");
+	}
+	thead += "</tr>";
+
+	for(var r = 0; r < questionCount; r++)
+	{
+		tbody += "<tr>";
+		for(var col = 0; col < categories.length; col++)
+		{
+			var clue = categories[col].questions[r];
+			var questionID = "q" + r + col;
+			var points = game.getPointValue(r);
+			tbody += "<td id='t" + questionID + "' class='cell clean' onclick='prompt.show(this)' data-question-id='" + questionID + "' data-points='" + points + "' data-answer='" + game.escapeAttribute(clue.answer) + "' data-question='" + game.escapeAttribute(clue.question) + "'>";
+			tbody += "<h3>" + points + "</h3>";
+			tbody += "</td>";
+		}
+		tbody += "</tr>";
+	}
+
+	$('#game thead').html(thead);
+	$('#game tbody').html(tbody);
+	game.bindBoardEvents();
+}
+
+game.getPointValue = function(rowIndex)
+{
+	return game.config.board.basePointValue + (rowIndex * game.config.board.pointIncrement);
+}
+
+game.escapeAttribute = function(value)
+{
+	return String(value)
+		.replace(/&/g, '&amp;')
+		.replace(/"/g, '&quot;')
+		.replace(/'/g, '&#39;')
+		.replace(/</g, '&lt;')
+		.replace(/>/g, '&gt;');
+}
+
 game.init = function()
 {
 	$('#game').fadeIn(1000);
@@ -525,15 +597,16 @@ game.subtractPoints = function(team)
 }
 
 var prompt = {}
-prompt.show = function(questionID, points)
+prompt.show = function(cellNode)
 {
-	game.current_points = points
-	game.current_questionID = questionID
+	var cell = $(cellNode)
+	game.current_points = parseInt(cell.attr('data-points'), 10)
+	game.current_questionID = cell.attr('data-question-id')
 	$('#question').hide()
 	$('#game').hide()
 	$('#prompt').fadeIn(1000)
-	$('#question').html($('#' + questionID).html())
-	$('#answer').html($('#a' + questionID).html())
+	$('#question').html(cell.attr('data-question'))
+	$('#answer').html(cell.attr('data-answer'))
 	if($('#question').html().length == 0)
 		$('#correct-response').hide()
 	else
@@ -557,294 +630,8 @@ prompt.showQuestion = function()
 <body>
 
 <table id="game" cellspacing="5" cellpadding="0" class="hide">
-	<thead>
-		<tr>
-		
-			<th>Movin' and Groovin'</th>
-		
-			<th>Skeletal Scaffolding</th>
-		
-			<th>Breathing<sup>2</sup></th>
-		
-			<th>The Pump</th>
-		
-			<th>What a Sight</th>
-		
-		</tr>		
-	</thead>
-	<tbody>
-		
-			<tr>
-				
-					
-						<td id="tq00" class="cell clean" onclick="prompt.show('q00', 100)">
-							<h3>100</h3>
-							<div class="hide">
-								<div id="q00">What are muscles?</div>
-								<div width="80%" id="aq00">These soft tissue structures when they contract allow you to move your arms and legs.</div>
-							</div>
-						</td>
-					
-				
-					
-						<td id="tq01" class="cell clean" onclick="prompt.show('q01', 100)">
-							<h3>100</h3>
-							<div class="hide">
-								<div id="q01">What are bones?</div>
-								<div id="aq01">These rigid organs make up the skeleton.</div>
-							</div>
-						</td>
-					
-				
-					
-						<td id="tq02" class="cell clean" onclick="prompt.show('q02', 100)">
-							<h3>100</h3>
-							<div class="hide">
-								<div id="q02">What are lungs?</div>
-								<div id="aq02">These paired organs allow you to breath in air.</div>
-							</div>
-						</td>
-					
-				
-					
-						<td id="tq03" class="cell clean" onclick="prompt.show('q03', 100)">
-							<h3>100</h3>
-							<div class="hide">
-								<div id="q03">What is the heart?</div>
-								<div id="aq03">This muscular organ pumps fluid through the circulatory system.</div>
-							</div>
-						</td>
-					
-				
-					
-						<td id="tq04" class="cell clean" onclick="prompt.show('q04', 100)">
-							<h3>100</h3>
-							<div class="hide">
-								<div id="q04">What are the eyes?</div>
-								<div id="aq04">These structures are the primary organs of vision.</div>
-							</div>
-						</td>
-					
-				
-			</tr>
-		
-			<tr>
-				
-					
-						<td id="tq10" class="cell clean" onclick="prompt.show('q10', 200)">
-							<h3>200</h3>
-							<div class="hide">
-								<div id="q10">What are joints?</div>
-								<div id="aq10">These structures are the location where two or more bones are fitted together.</div>
-							</div>
-						</td>
-					
-				
-					
-						<td id="tq11" class="cell clean" onclick="prompt.show('q11', 200)">
-							<h3>200</h3>
-							<div class="hide">
-								<div id="q11">What are vertebrae?</div>
-								<div id="aq11">These are a series of small bones forming the backbone.</div>
-							</div>
-						</td>
-					
-				
-					
-						<td id="tq12" class="cell clean" onclick="prompt.show('q12', 200)">
-							<h3>200</h3>
-							<div class="hide">
-								<div id="q12">What is oxygen?</div>
-								<div id="aq12">This molecule is the most essential inhaled gas.</div>
-							</div>
-						</td>
-					
-				
-					
-						<td id="tq13" class="cell clean" onclick="prompt.show('q13', 200)">
-							<h3>200</h3>
-							<div class="hide">
-								<div id="q13">What is blood?</div>
-								<div id="aq13">The heart pumps this fluid throughout the body.</div>
-							</div>
-						</td>
-					
-				
-					
-						<td id="tq14" class="cell clean" onclick="prompt.show('q14', 200)">
-							<h3>200</h3>
-							<div class="hide">
-								<div id="q14">What are eyelids?</div>
-								<div id="aq14">These thin folds of skin cover and protect the eyes.</div>
-							</div>
-						</td>
-					
-				
-			</tr>
-		
-			<tr>
-				
-					
-						<td id="tq20" class="cell clean" onclick="prompt.show('q20', 300)">
-							<h3>300</h3>
-							<div class="hide">
-								<div id="q20">What is flexion?</div>
-								<div id="aq20">The bending movement that decreases the angle between body parts.</div>
-							</div>
-						</td>
-					
-				
-					
-						<td id="tq21" class="cell clean" onclick="prompt.show('q21', 300)">
-							<h3>300</h3>
-							<div class="hide">
-								<div id="q21">What is the femur?</div>
-								<div id="aq21">This bone is the top most bone in the leg. Also called the thighbone.</div>
-							</div>
-						</td>
-					
-				
-					
-						<td id="tq22" class="cell clean" onclick="prompt.show('q22', 300)">
-							<h3>300</h3>
-							<div class="hide">
-								<div id="q22">What is a stethoscope?</div>
-								<div id="aq22">This medical device used to listen to internal sounds of the human body.</div>
-							</div>
-						</td>
-					
-				
-					
-						<td id="tq23" class="cell clean" onclick="prompt.show('q23', 300)">
-							<h3>300</h3>
-							<div class="hide">
-								<div id="q23">What are atria?</div>
-								<div id="aq23">These chambers collect blood as it returns to the heart.</div>
-							</div>
-						</td>
-					
-				
-					
-						<td id="tq24" class="cell clean" onclick="prompt.show('q24', 300)">
-							<h3>300</h3>
-							<div class="hide">
-								<div id="q24">What are pupils?</div>
-								<div id="aq24">These structures allow light to enter the eyes and strike the retina.</div>
-							</div>
-						</td>
-					
-				
-			</tr>
-		
-			<tr>
-				
-					
-						<td id="tq30" class="cell clean" onclick="prompt.show('q30', 400)">
-							<h3>400</h3>
-							<div class="hide">
-								<div id="q30">What is extension?</div>
-								<div id="aq30">The bending movement that increases the angle between body parts.</div>
-							</div>
-						</td>
-					
-				
-					
-						<td id="tq31" class="cell clean" onclick="prompt.show('q31', 400)">
-							<h3>400</h3>
-							<div class="hide">
-								<div id="q31">What is the humerus?</div>
-								<div id="aq31">This bone in the arms runs from the shoulder to the elbow.</div>
-							</div>
-						</td>
-					
-				
-					
-						<td id="tq32" class="cell clean" onclick="prompt.show('q32', 400)">
-							<h3>400</h3>
-							<div class="hide">
-								<div id="q32">What is carbon dioxide?</div>
-								<div id="aq32">This molecule is the most exhaled gas by humans.</div>
-							</div>
-						</td>
-					
-				
-					
-						<td id="tq33" class="cell clean" onclick="prompt.show('q33', 400)">
-							<h3>400</h3>
-							<div class="hide">
-								<div id="q33">What are ventricles?</div>
-								<div id="aq33">These chambers collect and expel blood out of the heart.</div>
-							</div>
-						</td>
-					
-				
-					
-						<td id="tq34" class="cell clean" onclick="prompt.show('q34', 400)">
-							<h3>400</h3>
-							<div class="hide">
-								<div id="q34">What is the optic nerve?</div>
-								<div id="aq34">This nerve transmits visual information to the brain from the eye.</div>
-							</div>
-						</td>
-					
-				
-			</tr>
-		
-			<tr>
-				
-					
-						<td id="tq40" class="cell clean" onclick="prompt.show('q40', 500)">
-							<h3>500</h3>
-							<div class="hide">
-								<div id="q40">What is a tendon?</div>
-								<div id="aq40">This structure attaches a muscle to a bone.</div>
-							</div>
-						</td>
-					
-				
-					
-						<td id="tq41" class="cell clean" onclick="prompt.show('q41', 500)">
-							<h3>500</h3>
-							<div class="hide">
-								<div id="q41">What is calcium?</div>
-								<div id="aq41">This is the most abundant mineral in the bones.</div>
-							</div>
-						</td>
-					
-				
-					
-						<td id="tq42" class="cell clean" onclick="prompt.show('q42', 500)">
-							<h3>500</h3>
-							<div class="hide">
-								<div id="q42">What is the trachea?</div>
-								<div id="aq42">This hollow tube connects the pharynx to the lungs, allowing the passage of air.</div>
-							</div>
-						</td>
-					
-				
-					
-						<td id="tq43" class="cell clean" onclick="prompt.show('q43', 500)">
-							<h3>500</h3>
-							<div class="hide">
-								<div id="q43">What are valves?</div>
-								<div id="aq43">These structures allow blood to flow in only one direction through the heart.</div>
-							</div>
-						</td>
-					
-				
-					
-						<td id="tq44" class="cell clean" onclick="prompt.show('q44', 500)">
-							<h3>500</h3>
-							<div class="hide">
-								<div id="q44">What are the irises?</div>
-								<div id="aq44">These structures define the eye color and control how much light enters the eye.</div>
-							</div>
-						</td>
-					
-				
-			</tr>
-		
-	</tbody>
+	<thead></thead>
+	<tbody></tbody>
 </table>
 
 <div id="options">
