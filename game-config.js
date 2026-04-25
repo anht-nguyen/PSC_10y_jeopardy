@@ -1,8 +1,8 @@
 window.QUIZ_CONFIG = {
   title: "Science Masters Jeopardy",
   board: {
-    categoryCount: 5,
-    questionsPerCategory: 5,
+    categoryCount: 4,
+    questionsPerCategory: 4,
     basePointValue: 100,
     pointIncrement: 100
   },
@@ -33,12 +33,6 @@ window.QUIZ_CONFIG = {
           question_media: "images/placeholder-1.jpg",
           answer: "What is extension?",
           answer_media: "images/placeholder.jpg"
-        },
-        {
-          question: "This structure attaches a muscle to a bone.",
-          question_media: "images/placeholder.jpg",
-          answer: "What is a tendon?",
-          answer_media: "images/placeholder-1.jpg"
         }
       ]
     },
@@ -67,12 +61,6 @@ window.QUIZ_CONFIG = {
           question: "This bone in the arms runs from the shoulder to the elbow.",
           question_media: "images/placeholder.jpg",
           answer: "What is the humerus?",
-          answer_media: "images/placeholder.jpg"
-        },
-        {
-          question: "This is the most abundant mineral in the bones.",
-          question_media: "images/placeholder.jpg",
-          answer: "What is calcium?",
           answer_media: "images/placeholder.jpg"
         }
       ]
@@ -103,12 +91,6 @@ window.QUIZ_CONFIG = {
           question_media: "images/placeholder.jpg",
           answer: "What is carbon dioxide?",
           answer_media: "images/placeholder.jpg"
-        },
-        {
-          question: "This hollow tube connects the pharynx to the lungs, allowing the passage of air.",
-          question_media: "images/placeholder.jpg",
-          answer: "What is the trachea?",
-          answer_media: "images/placeholder.jpg"
         }
       ]
     },
@@ -137,47 +119,6 @@ window.QUIZ_CONFIG = {
           question: "These chambers collect and expel blood out of the heart.",
           question_media: "images/placeholder.jpg",
           answer: "What are ventricles?",
-          answer_media: "images/placeholder.jpg"
-        },
-        {
-          question: "These structures allow blood to flow in only one direction through the heart.",
-          question_media: "images/placeholder.jpg",
-          answer: "What are valves?",
-          answer_media: "images/placeholder.jpg"
-        }
-      ]
-    },
-    {
-      title: "What a Sight",
-      questions: [
-        {
-          question: "These structures are the primary organs of vision.",
-          question_media: "images/placeholder.jpg",
-          answer: "What are the eyes?",
-          answer_media: "images/placeholder.jpg"
-        },
-        {
-          question: "These thin folds of skin cover and protect the eyes.",
-          question_media: "images/placeholder.jpg",
-          answer: "What are eyelids?",
-          answer_media: "images/placeholder.jpg"
-        },
-        {
-          question: "These structures allow light to enter the eyes and strike the retina.",
-          question_media: "images/placeholder.jpg",
-          answer: "What are pupils?",
-          answer_media: "images/placeholder.jpg"
-        },
-        {
-          question: "This nerve transmits visual information to the brain from the eye.",
-          question_media: "images/placeholder.jpg",
-          answer: "What is the optic nerve?",
-          answer_media: "images/placeholder.jpg"
-        },
-        {
-          question: "These structures define the eye color and control how much light enters the eye.",
-          question_media: "images/placeholder.jpg",
-          answer: "What are the irises?",
           answer_media: "images/placeholder.jpg"
         }
       ]
