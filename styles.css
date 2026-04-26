@@ -1,7 +1,8 @@
 body {
 	background-color:#2a3698;
 	height:100%;
-	font-family:Verdana, Arial, Helvetica, sans-serif;
+	font-family:"Segoe UI", Tahoma, Verdana, Arial, Helvetica, sans-serif;
+	text-rendering:optimizeLegibility;
 	padding-bottom:100px;
 }
 
@@ -12,7 +13,7 @@ label {
 
 input, textarea, select {
 	display:block;
-	font-family:Verdana, Arial, Helvetica, sans-serif;
+	font-family:"Segoe UI", Tahoma, Verdana, Arial, Helvetica, sans-serif;
 	margin:auto;
 }
 
@@ -192,7 +193,7 @@ textarea#title {
 	font-size:18px;
 	font-weight:bold;
 	text-align:center;
-	font-family:Verdana, Arial, Helvetica, sans-serif;
+	font-family:"Segoe UI", Tahoma, Verdana, Arial, Helvetica, sans-serif;
 	width:100%;
 	display:block;
 }

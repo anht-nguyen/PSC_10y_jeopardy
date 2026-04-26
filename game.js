@@ -56,9 +56,19 @@ game.getActiveCategories = function()
 	return game.config.categories.slice(0, categoryCount);
 };
 
-game.getPointValue = function(rowIndex)
+game.getOrderedQuestions = function(category)
 {
-	return game.config.board.basePointValue + (rowIndex * game.config.board.pointIncrement);
+	return category.questions.slice().sort(function(a, b) {
+		var levelA = a && typeof a.level === "number" ? a.level : 0;
+		var levelB = b && typeof b.level === "number" ? b.level : 0;
+
+		return levelA - levelB;
+	});
+};
+
+game.getPointValue = function(level)
+{
+	return game.config.board.basePointValue + ((level - 1) * game.config.board.pointIncrement);
 };
 
 game.renderBoard = function()
@@ -74,6 +84,12 @@ game.renderBoard = function()
 
 	if(categories.length < game.config.board.categoryCount)
 		throw new Error("Not enough categories in QUIZ_CONFIG.");
+
+	if(game.config.language)
+	{
+		document.documentElement.lang = game.config.language;
+		document.documentElement.setAttribute("xml:lang", game.config.language);
+	}
 
 	document.title = game.config.title;
 	document.querySelector("#options h1").textContent = game.config.title;
@@ -99,9 +115,10 @@ game.renderBoard = function()
 
 		for(var col = 0; col < categories.length; col++)
 		{
-			var card = categories[col].questions[r];
+			var orderedQuestions = game.getOrderedQuestions(categories[col]);
+			var card = orderedQuestions[r];
 			var questionId = "q" + r + col;
-			var points = game.getPointValue(r);
+			var points = game.getPointValue(card.level);
 			var cell = document.createElement("td");
 			var heading = document.createElement("h3");
 
