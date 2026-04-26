@@ -16,25 +16,60 @@ function normalizeMedia(value)
 	return String(value);
 }
 
-function applyMediaPair(containerId, textId, imageId, textValue, imageValue)
+function getMediaKind(mediaPath)
+{
+	var extension = mediaPath.split("?")[0].split("#")[0].split(".").pop().toLowerCase();
+
+	if(extension === "mp4" || extension === "webm" || extension === "ogg")
+		return "video";
+
+	return "image";
+}
+
+function applyMediaPair(containerId, textId, imageId, videoId, textValue, mediaValue)
 {
 	var container = $(containerId);
 	var textNode = $(textId);
 	var imageNode = $(imageId);
-	var mediaPath = normalizeMedia(imageValue);
+	var videoNode = $(videoId);
+	var mediaPath = normalizeMedia(mediaValue);
+	var mediaKind = mediaPath ? getMediaKind(mediaPath) : "";
 
 	textNode.textContent = textValue || "";
 
-	if(mediaPath)
+	if(mediaPath && mediaKind === "video")
+	{
+		videoNode.src = mediaPath;
+		videoNode.hidden = false;
+		videoNode.style.display = "block";
+		videoNode.load();
+		imageNode.removeAttribute("src");
+		imageNode.hidden = true;
+		imageNode.style.display = "none";
+		container.classList.add("has-image");
+	}
+	else if(mediaPath)
 	{
 		imageNode.src = mediaPath;
+		imageNode.hidden = false;
 		imageNode.style.display = "block";
+		videoNode.pause();
+		videoNode.removeAttribute("src");
+		videoNode.load();
+		videoNode.hidden = true;
+		videoNode.style.display = "none";
 		container.classList.add("has-image");
 	}
 	else
 	{
 		imageNode.removeAttribute("src");
+		imageNode.hidden = true;
 		imageNode.style.display = "none";
+		videoNode.pause();
+		videoNode.removeAttribute("src");
+		videoNode.load();
+		videoNode.hidden = true;
+		videoNode.style.display = "none";
 		container.classList.remove("has-image");
 	}
 }
@@ -56,9 +91,19 @@ game.getActiveCategories = function()
 	return game.config.categories.slice(0, categoryCount);
 };
 
-game.getPointValue = function(rowIndex)
+game.getOrderedQuestions = function(category)
 {
-	return game.config.board.basePointValue + (rowIndex * game.config.board.pointIncrement);
+	return category.questions.slice().sort(function(a, b) {
+		var levelA = a && typeof a.level === "number" ? a.level : 0;
+		var levelB = b && typeof b.level === "number" ? b.level : 0;
+
+		return levelA - levelB;
+	});
+};
+
+game.getPointValue = function(level)
+{
+	return game.config.board.basePointValue + ((level - 1) * game.config.board.pointIncrement);
 };
 
 game.renderBoard = function()
@@ -74,6 +119,12 @@ game.renderBoard = function()
 
 	if(categories.length < game.config.board.categoryCount)
 		throw new Error("Not enough categories in QUIZ_CONFIG.");
+
+	if(game.config.language)
+	{
+		document.documentElement.lang = game.config.language;
+		document.documentElement.setAttribute("xml:lang", game.config.language);
+	}
 
 	document.title = game.config.title;
 	document.querySelector("#options h1").textContent = game.config.title;
@@ -99,9 +150,10 @@ game.renderBoard = function()
 
 		for(var col = 0; col < categories.length; col++)
 		{
-			var card = categories[col].questions[r];
+			var orderedQuestions = game.getOrderedQuestions(categories[col]);
+			var card = orderedQuestions[r];
 			var questionId = "q" + r + col;
-			var points = game.getPointValue(r);
+			var points = game.getPointValue(card.level);
 			var cell = document.createElement("td");
 			var heading = document.createElement("h3");
 
@@ -244,8 +296,8 @@ gamePrompt.show = function(cellNode)
 	setHidden($("game"), true);
 	setHidden($("prompt"), false, "block");
 	$("prompt-title").innerHTML = cellNode.dataset.categoryTitle + " for " + cellNode.dataset.points + ":";
-	applyMediaPair("question-media", "question", "question-image", cellNode.dataset.question, cellNode.dataset.questionMedia);
-	applyMediaPair("answer-media", "answer", "answer-image", cellNode.dataset.answer, cellNode.dataset.answerMedia);
+	applyMediaPair("question-media", "question", "question-image", "question-video", cellNode.dataset.question, cellNode.dataset.questionMedia);
+	applyMediaPair("answer-media", "answer", "answer-image", "answer-video", cellNode.dataset.answer, cellNode.dataset.answerMedia);
 	setHidden($("answer-reveal"), $("answer").textContent.length === 0 && !cellNode.dataset.answerMedia);
 };
 
