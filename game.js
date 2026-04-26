@@ -16,25 +16,60 @@ function normalizeMedia(value)
 	return String(value);
 }
 
-function applyMediaPair(containerId, textId, imageId, textValue, imageValue)
+function getMediaKind(mediaPath)
+{
+	var extension = mediaPath.split("?")[0].split("#")[0].split(".").pop().toLowerCase();
+
+	if(extension === "mp4" || extension === "webm" || extension === "ogg")
+		return "video";
+
+	return "image";
+}
+
+function applyMediaPair(containerId, textId, imageId, videoId, textValue, mediaValue)
 {
 	var container = $(containerId);
 	var textNode = $(textId);
 	var imageNode = $(imageId);
-	var mediaPath = normalizeMedia(imageValue);
+	var videoNode = $(videoId);
+	var mediaPath = normalizeMedia(mediaValue);
+	var mediaKind = mediaPath ? getMediaKind(mediaPath) : "";
 
 	textNode.textContent = textValue || "";
 
-	if(mediaPath)
+	if(mediaPath && mediaKind === "video")
+	{
+		videoNode.src = mediaPath;
+		videoNode.hidden = false;
+		videoNode.style.display = "block";
+		videoNode.load();
+		imageNode.removeAttribute("src");
+		imageNode.hidden = true;
+		imageNode.style.display = "none";
+		container.classList.add("has-image");
+	}
+	else if(mediaPath)
 	{
 		imageNode.src = mediaPath;
+		imageNode.hidden = false;
 		imageNode.style.display = "block";
+		videoNode.pause();
+		videoNode.removeAttribute("src");
+		videoNode.load();
+		videoNode.hidden = true;
+		videoNode.style.display = "none";
 		container.classList.add("has-image");
 	}
 	else
 	{
 		imageNode.removeAttribute("src");
+		imageNode.hidden = true;
 		imageNode.style.display = "none";
+		videoNode.pause();
+		videoNode.removeAttribute("src");
+		videoNode.load();
+		videoNode.hidden = true;
+		videoNode.style.display = "none";
 		container.classList.remove("has-image");
 	}
 }
@@ -261,8 +296,8 @@ gamePrompt.show = function(cellNode)
 	setHidden($("game"), true);
 	setHidden($("prompt"), false, "block");
 	$("prompt-title").innerHTML = cellNode.dataset.categoryTitle + " for " + cellNode.dataset.points + ":";
-	applyMediaPair("question-media", "question", "question-image", cellNode.dataset.question, cellNode.dataset.questionMedia);
-	applyMediaPair("answer-media", "answer", "answer-image", cellNode.dataset.answer, cellNode.dataset.answerMedia);
+	applyMediaPair("question-media", "question", "question-image", "question-video", cellNode.dataset.question, cellNode.dataset.questionMedia);
+	applyMediaPair("answer-media", "answer", "answer-image", "answer-video", cellNode.dataset.answer, cellNode.dataset.answerMedia);
 	setHidden($("answer-reveal"), $("answer").textContent.length === 0 && !cellNode.dataset.answerMedia);
 };
 

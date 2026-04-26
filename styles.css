@@ -284,7 +284,8 @@ input.subtract-points {
 	text-align:left;
 }
 
-.media-pair img {
+.media-pair img,
+.media-pair video {
 	display:none;
 	width:auto;
 	height:auto;

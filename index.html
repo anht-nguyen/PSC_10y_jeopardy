@@ -39,12 +39,14 @@
 		<div id="question-media" class="media-pair">
 			<h2 id="question"></h2>
 			<img id="question-image" alt="Question media" />
+			<video id="question-video" controls preload="metadata" playsinline hidden></video>
 		</div>
 		<p class="prompt-action"><span id="answer-reveal"><a href="#" onclick="gamePrompt.showAnswer(); return false;">Reveal answer</a></span></p>
 
 		<div id="answer-media" class="media-pair">
 			<h2 id="answer"></h2>
 			<img id="answer-image" alt="Answer media" />
+			<video id="answer-video" controls preload="metadata" playsinline hidden></video>
 		</div>
 
 		<p class="prompt-action prompt-continue"><a href="#" onclick="gamePrompt.hide(); return false;">Continue &raquo;</a></p>
