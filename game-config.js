@@ -13,10 +13,10 @@ window.QUIZ_CONFIG = {
       questions: [
         {
           level: 1,
-          question: "These soft tissue structures when they contract allow you to move your arms and legs.",
-          question_media: "assets/placeholder.jpg",
-          answer: "What are muscles?",
-          answer_media: null
+          question: "Who's that Pokemon?",
+          question_media: "assets/IMG_0212_masked.png",
+          answer: "",
+          answer_media: "assets/IMG_0212.jpg"
         },
         {
           level: 2,
@@ -113,9 +113,9 @@ window.QUIZ_CONFIG = {
         {
           level: 1,
           question: "Trong chiến dịch 8/3 lớp 12, nhóm con trai đứng dưới sân đã hát đồng thanh bài gì?",
-          question_media: "assets/placeholder.jpg",
+          question_media: "assets/Screenshot-video8-3-2016.png",
           answer: "Em trong mắt tôi",
-          answer_media: "assets/placeholder.jpg"
+          answer_media: "assets/video8-3-2016.mp4"
         },
         {
           level: 2,
