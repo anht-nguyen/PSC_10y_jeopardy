@@ -12,31 +12,31 @@ window.QUIZ_CONFIG = {
       title: "Who's That Pokemon? 1",
       questions: [
         {
-          level: 1,
+          level: 2,
           question: "Who's that Pokemon?",
           question_media: "assets/IMG_0212_masked.png",
           answer: "",
           answer_media: "assets/IMG_0212.jpg"
         },
         {
-          level: 2,
-          question: "These structures are the location where two or more bones are fitted together.",
-          question_media: null,
-          answer: "What are joints?",
-          answer_media: "assets/placeholder.jpg"
+          level: 1,
+          question: "Who's that Pokemon?",
+          question_media: "assets/tiep_masked.png",
+          answer: "",
+          answer_media: "assets/tiep.jpg"
         },
         {
           level: 3,
-          question: "The bending movement that decreases the angle between body parts.",
-          question_media: "assets/placeholder-1.jpg",
-          answer: "What is flexion?",
-          answer_media: "assets/placeholder-1.jpg"
+          question: "Who's that Pokemon?",
+          question_media: "assets/chichingu-1.jpg",
+          answer: "",
+          answer_media: "assets/chichingu-2.jpg"
         },
         {
           level: 4,
-          question: "The bending movement that increases the angle between body parts.",
+          question: "Who's that Pokemon?",
           question_media: "assets/placeholder-1.jpg",
-          answer: "What is extension?",
+          answer: "",
           answer_media: "assets/placeholder.jpg"
         }
       ]
@@ -46,30 +46,37 @@ window.QUIZ_CONFIG = {
       questions: [
         {
           level: 1,
-          question: "These rigid organs make up the skeleton.",
+          question: "Who's that Pokemon?",
+          question_media: "assets/xiu_cropped.JPG",
+          answer: "",
+          answer_media: "assets/xiu.JPG"
+        },
+        // {
+        //   level: 2,
+        //   question: "Who's that Pokemon?",
+        //   question_media: "assets/chichi-masked.png",
+        //   answer: "",
+        //   answer_media: "assets/chichi.jpg"
+        // },
+        {
+          level: 2,
+          question: "Who's that Pokemon?",
+          question_media: "assets/bachngu-masked.png",
+          answer: "",
+          answer_media: ["assets/bachngu.jpg", "assets/bachngu-1.JPG"]
+        },
+        {
+          level: 3,
+          question: "Who's that Pokemon?",
           question_media: "assets/placeholder.jpg",
           answer: "",
           answer_media: "assets/placeholder.jpg"
         },
         {
-          level: 2,
-          question: "These are a series of small bones forming the backbone.",
-          question_media: "assets/placeholder.jpg",
-          answer: "What are vertebrae?",
-          answer_media: "assets/placeholder.jpg"
-        },
-        {
-          level: 3,
-          question: "This bone is the top most bone in the leg. Also called the thighbone.",
-          question_media: "assets/placeholder.jpg",
-          answer: "What is the femur?",
-          answer_media: "assets/placeholder.jpg"
-        },
-        {
           level: 4,
-          question: "This bone in the arms runs from the shoulder to the elbow.",
+          question: "Who's that Pokemon?",
           question_media: "assets/placeholder.jpg",
-          answer: "What is the humerus?",
+          answer: "",
           answer_media: "assets/placeholder.jpg"
         }
       ]
@@ -79,31 +86,31 @@ window.QUIZ_CONFIG = {
       questions: [
         {
           level: 1,
-          question: "These paired organs allow you to breath in air.",
-          question_media: "assets/placeholder.jpg",
-          answer: "What are lungs?",
-          answer_media: "assets/placeholder.jpg"
+          question: "Đây là ca sĩ nào? Kể tên 1 bài hát của ca sĩ đó.",
+          question_media: "assets/ca-si.jpg",
+          answer: "Cẩm Vân Phạm. \n 'Chân ngắn'",
+          answer_media: null
         },
         {
           level: 2,
-          question: "This molecule is the most essential inhaled gas.",
-          question_media: "assets/placeholder.jpg",
-          answer: "What is oxygen?",
-          answer_media: "assets/placeholder.jpg"
-        },
-        {
-          level: 3,
-          question: "This medical device used to listen to internal sounds of the human body.",
-          question_media: "assets/placeholder.jpg",
-          answer: "What is a stethoscope?",
-          answer_media: "assets/placeholder.jpg"
+          question: "Lớp đã đi thăm nhà thầy/cô nào đây?",
+          question_media: "assets/IMG_0877.JPG",
+          answer: "",
+          answer_media: "assets/IMG_0880.JPG"
         },
         {
           level: 4,
-          question: "This molecule is the most exhaled gas by humans.",
-          question_media: "assets/placeholder.jpg",
-          answer: "What is carbon dioxide?",
-          answer_media: "assets/placeholder.jpg"
+          question: "Ai là người duy nhất trong lớp xuất hiện trên vở trường CNT?.",
+          question_media: "assets/vo nguyen trai.jpg",
+          answer: "",
+          answer_media: "assets/vo nguyen trai  - zoom.jpg"
+        },
+        {
+          level: 3,
+          question: "Đây là thầy nào?",
+          question_media: "assets/thayto-1.JPG",
+          answer: "",
+          answer_media: "assets/thayto-2.JPG"
         }
       ]
     },
@@ -111,32 +118,39 @@ window.QUIZ_CONFIG = {
       title: "Chuyện gì đã xảy ra?",
       questions: [
         {
-          level: 1,
+          level: 4,
           question: "Trong chiến dịch 8/3 lớp 12, nhóm con trai đứng dưới sân đã hát đồng thanh bài gì?",
           question_media: "assets/Screenshot-video8-3-2016.png",
           answer: "Em trong mắt tôi",
           answer_media: "assets/video8-3-2016.mp4"
         },
         {
+          level: 1,
+          question: "Sự kiện này diễn ra vào ngày tháng năm nào?",
+          question_media: "assets/IMG_2079.JPG",
+          answer: "6/4/2016",
+          answer_media: "assets/P_20160406_070540.jpg"
+        },
+        {
           level: 2,
-          question: "The heart pumps this fluid throughout the body.",
-          question_media: "assets/placeholder.jpg",
-          answer: "What is blood?",
-          answer_media: "assets/placeholder.jpg"
+          question: "Đây là đâu và là năm bao nhiêu?",
+          question_media: "assets/tamdao-1.jpg",
+          answer: "Tam Đảo, 2014",
+          answer_media: "assets/tamdao-2.jpg"
         },
         {
           level: 3,
-          question: "These chambers collect blood as it returns to the heart.",
-          question_media: "assets/placeholder.jpg",
-          answer: "What are atria?",
-          answer_media: "assets/placeholder.jpg"
+          question: "Bữa tối này diễn ra sau khi đi đâu về?",
+          question_media: "assets/conson-1.jpg",
+          answer: "Côn Sơn",
+          answer_media: "assets/conson-2.jpg"
         },
         {
-          level: 4,
-          question: "These chambers collect and expel blood out of the heart.",
-          question_media: "assets/placeholder.jpg",
-          answer: "What are ventricles?",
-          answer_media: "assets/placeholder.jpg"
+          level: 5,
+          question: "Bữa lẩu này tổ chức ở nhà ai?",
+          question_media: "assets/lau2014.jpg",
+          answer: "Tuấn khổ",
+          answer_media: "assets/lau2014_video.MP4"
         }
       ]
     }
