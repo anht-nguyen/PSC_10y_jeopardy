@@ -45,7 +45,7 @@ window.QUIZ_CONFIG = {
       title: "Who's That Pokemon? 2",
       questions: [
         {
-          level: 1,
+          level: 2,
           question: "Who's that Pokemon?",
           question_media: "assets/xiu_cropped.JPG",
           answer: "",
@@ -59,18 +59,18 @@ window.QUIZ_CONFIG = {
         //   answer_media: "assets/chichi.jpg"
         // },
         {
-          level: 2,
+          level: 3,
           question: "Who's that Pokemon?",
           question_media: "assets/bachngu-masked.png",
           answer: "",
           answer_media: ["assets/bachngu.jpg", "assets/bachngu-1.JPG"]
         },
         {
-          level: 3,
+          level: 1,
           question: "Who's that Pokemon?",
-          question_media: "assets/placeholder.jpg",
+          question_media: "assets/bopvu-masked.png",
           answer: "",
-          answer_media: "assets/placeholder.jpg"
+          answer_media: "assets/bopvu.jpg"
         },
         {
           level: 4,
@@ -138,15 +138,15 @@ window.QUIZ_CONFIG = {
           answer: "Tam Đảo, 2014",
           answer_media: "assets/tamdao-2.jpg"
         },
+        // {
+        //   level: 3,
+        //   question: "Bữa tối này diễn ra sau khi đi đâu về?",
+        //   question_media: "assets/conson-1.jpg",
+        //   answer: "Côn Sơn",
+        //   answer_media: "assets/conson-2.jpg"
+        // },
         {
           level: 3,
-          question: "Bữa tối này diễn ra sau khi đi đâu về?",
-          question_media: "assets/conson-1.jpg",
-          answer: "Côn Sơn",
-          answer_media: "assets/conson-2.jpg"
-        },
-        {
-          level: 5,
           question: "Bữa lẩu này tổ chức ở nhà ai?",
           question_media: "assets/lau2014.jpg",
           answer: "Tuấn khổ",
