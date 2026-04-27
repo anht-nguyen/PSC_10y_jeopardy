@@ -276,6 +276,14 @@ input.subtract-points {
 	max-width:60%;
 }
 
+.media-gallery {
+	display:flex;
+	flex-wrap:wrap;
+	align-items:center;
+	justify-content:center;
+	gap:20px;
+}
+
 #question-media h2 {
 	text-align:left;
 }
@@ -284,9 +292,9 @@ input.subtract-points {
 	text-align:left;
 }
 
-.media-pair img,
-.media-pair video {
-	display:none;
+.media-gallery img,
+.media-gallery video {
+	display:block;
 	width:auto;
 	height:auto;
 	max-width:500px;
@@ -321,7 +329,8 @@ input.subtract-points {
 		text-align:center;
 	}
 
-	.media-pair img {
+	.media-gallery img,
+	.media-gallery video {
 		max-width:70vw;
 	}
 }

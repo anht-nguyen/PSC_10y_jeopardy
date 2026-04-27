@@ -16,6 +16,38 @@ function normalizeMedia(value)
 	return String(value);
 }
 
+function normalizeMediaList(value)
+{
+	if(Array.isArray(value))
+		return value.map(normalizeMedia).filter(function(item) {
+			return item.length > 0;
+		});
+
+	var normalized = normalizeMedia(value);
+	return normalized ? [normalized] : [];
+}
+
+function serializeMediaList(value)
+{
+	return JSON.stringify(normalizeMediaList(value));
+}
+
+function parseMediaList(value)
+{
+	if(!value)
+		return [];
+
+	try
+	{
+		var parsed = JSON.parse(value);
+		return normalizeMediaList(parsed);
+	}
+	catch(error)
+	{
+		return normalizeMediaList(value);
+	}
+}
+
 function getMediaKind(mediaPath)
 {
 	var extension = mediaPath.split("?")[0].split("#")[0].split(".").pop().toLowerCase();
@@ -26,50 +58,64 @@ function getMediaKind(mediaPath)
 	return "image";
 }
 
-function applyMediaPair(containerId, textId, imageId, videoId, textValue, mediaValue)
+function clearMediaGallery(container)
+{
+	while(container.firstChild)
+	{
+		var child = container.firstChild;
+		if(child.tagName && child.tagName.toLowerCase() === "video")
+		{
+			child.pause();
+			child.removeAttribute("src");
+			child.load();
+		}
+
+		container.removeChild(child);
+	}
+}
+
+function appendMediaItem(container, mediaPath, labelPrefix, itemNumber)
+{
+	var mediaKind = getMediaKind(mediaPath);
+	var node;
+
+	if(mediaKind === "video")
+	{
+		node = document.createElement("video");
+		node.controls = true;
+		node.preload = "metadata";
+		node.playsInline = true;
+		node.src = mediaPath;
+	}
+	else
+	{
+		node = document.createElement("img");
+		node.src = mediaPath;
+	}
+
+	node.alt = labelPrefix + " " + itemNumber;
+	container.appendChild(node);
+}
+
+function applyMediaPair(containerId, textId, mediaItemsId, textValue, mediaValue, mediaLabel)
 {
 	var container = $(containerId);
 	var textNode = $(textId);
-	var imageNode = $(imageId);
-	var videoNode = $(videoId);
-	var mediaPath = normalizeMedia(mediaValue);
-	var mediaKind = mediaPath ? getMediaKind(mediaPath) : "";
+	var mediaItemsNode = $(mediaItemsId);
+	var mediaPaths = normalizeMediaList(mediaValue);
 
 	textNode.textContent = textValue || "";
+	clearMediaGallery(mediaItemsNode);
 
-	if(mediaPath && mediaKind === "video")
+	if(mediaPaths.length > 0)
 	{
-		videoNode.src = mediaPath;
-		videoNode.hidden = false;
-		videoNode.style.display = "block";
-		videoNode.load();
-		imageNode.removeAttribute("src");
-		imageNode.hidden = true;
-		imageNode.style.display = "none";
-		container.classList.add("has-image");
-	}
-	else if(mediaPath)
-	{
-		imageNode.src = mediaPath;
-		imageNode.hidden = false;
-		imageNode.style.display = "block";
-		videoNode.pause();
-		videoNode.removeAttribute("src");
-		videoNode.load();
-		videoNode.hidden = true;
-		videoNode.style.display = "none";
+		for(var i = 0; i < mediaPaths.length; i++)
+			appendMediaItem(mediaItemsNode, mediaPaths[i], mediaLabel, i + 1);
+
 		container.classList.add("has-image");
 	}
 	else
 	{
-		imageNode.removeAttribute("src");
-		imageNode.hidden = true;
-		imageNode.style.display = "none";
-		videoNode.pause();
-		videoNode.removeAttribute("src");
-		videoNode.load();
-		videoNode.hidden = true;
-		videoNode.style.display = "none";
 		container.classList.remove("has-image");
 	}
 }
@@ -163,9 +209,9 @@ game.renderBoard = function()
 			cell.dataset.points = String(points);
 			cell.dataset.categoryTitle = categories[col].title;
 			cell.dataset.question = card.question;
-			cell.dataset.questionMedia = normalizeMedia(card.question_media);
+			cell.dataset.questionMedia = serializeMediaList(card.question_media);
 			cell.dataset.answer = card.answer;
-			cell.dataset.answerMedia = normalizeMedia(card.answer_media);
+			cell.dataset.answerMedia = serializeMediaList(card.answer_media);
 			cell.onclick = function() {
 				gamePrompt.show(this);
 			};
@@ -296,9 +342,9 @@ gamePrompt.show = function(cellNode)
 	setHidden($("game"), true);
 	setHidden($("prompt"), false, "block");
 	$("prompt-title").innerHTML = cellNode.dataset.categoryTitle + " for " + cellNode.dataset.points + ":";
-	applyMediaPair("question-media", "question", "question-image", "question-video", cellNode.dataset.question, cellNode.dataset.questionMedia);
-	applyMediaPair("answer-media", "answer", "answer-image", "answer-video", cellNode.dataset.answer, cellNode.dataset.answerMedia);
-	setHidden($("answer-reveal"), $("answer").textContent.length === 0 && !cellNode.dataset.answerMedia);
+	applyMediaPair("question-media", "question", "question-media-items", cellNode.dataset.question, parseMediaList(cellNode.dataset.questionMedia), "Question media");
+	applyMediaPair("answer-media", "answer", "answer-media-items", cellNode.dataset.answer, parseMediaList(cellNode.dataset.answerMedia), "Answer media");
+	setHidden($("answer-reveal"), $("answer").textContent.length === 0 && parseMediaList(cellNode.dataset.answerMedia).length === 0);
 };
 
 gamePrompt.hide = function()
