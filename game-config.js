@@ -100,8 +100,8 @@ window.QUIZ_CONFIG = {
         },
         {
           level: 4,
-          question: "Ai là người duy nhất trong lớp xuất hiện trên vở trường CNT?.",
-          question_media: "assets/vo nguyen trai.jpg",
+          question: "Ai là người duy nhất trong lớp xuất hiện trên vở trường CNT?",
+          question_media: "assets/vo nguyen trai .jpg",
           answer: "",
           answer_media: "assets/vo nguyen trai  - zoom.jpg"
         },
