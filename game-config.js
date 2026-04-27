@@ -35,9 +35,9 @@ window.QUIZ_CONFIG = {
         {
           level: 4,
           question: "Who's that Pokemon?",
-          question_media: "assets/placeholder-1.jpg",
+          question_media: "assets/h.hai-masked.png",
           answer: "",
-          answer_media: "assets/placeholder.jpg"
+          answer_media: "assets/h.hai.jpg"
         }
       ]
     },
@@ -45,7 +45,7 @@ window.QUIZ_CONFIG = {
       title: "Who's That Pokemon? 2",
       questions: [
         {
-          level: 2,
+          level: 4,
           question: "Who's that Pokemon?",
           question_media: "assets/xiu_cropped.JPG",
           answer: "",
@@ -66,18 +66,18 @@ window.QUIZ_CONFIG = {
           answer_media: ["assets/bachngu.jpg", "assets/bachngu-1.JPG"]
         },
         {
-          level: 1,
+          level: 2,
           question: "Who's that Pokemon?",
           question_media: "assets/bopvu-masked.png",
           answer: "",
           answer_media: "assets/bopvu.jpg"
         },
         {
-          level: 4,
+          level: 1,
           question: "Who's that Pokemon?",
-          question_media: "assets/placeholder.jpg",
+          question_media: "assets/long-masked.png",
           answer: "",
-          answer_media: "assets/placeholder.jpg"
+          answer_media: ["assets/long.JPG", "assets/long-1.JPG"]
         }
       ]
     },
